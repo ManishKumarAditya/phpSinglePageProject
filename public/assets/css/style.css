@@ -1,0 +1,12 @@
+thead{
+    /* height:500px;  */
+    /* display:block;
+    overflow:scroll; */
+    width: 100%;
+}
+tbody{
+    height:500px; 
+    display:block;
+    overflow:scroll;
+    width: 100%;
+}

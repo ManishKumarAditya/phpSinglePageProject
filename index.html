@@ -38,14 +38,14 @@
                 </nav>
             </div>
             <div class="row mt-5">
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <ul class="list-group">
-                        <li class="list-group-item active" aria-current="true">Fill the form .</li>
+                        <li class="list-group-item active" aria-current="true">Fill the Details form</li>
                     </ul>
                 </div>
                 <div class="col-lg-8">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header bg-secondary text-white">
                             <h4>Fill the details</h4>
                         </div>
                         <div class="card-body">
@@ -83,8 +83,8 @@
         </div>
         <div class="row mt-5">
             <div class="col-lg-12">
-                <button id="sortById">Sort by ID</button>
-                <button id="sortByName">Sort by Name</button>
+                <button class="btn btn-secondary" id="sortById">Sort by ID</button>
+                <button class="btn btn-secondary" id="sortByName">Sort by Name</button>
                 <table  id="myTable" class="table table-striped table-borderd">
                     <thead>
                         <tr>
@@ -137,15 +137,48 @@
             try {
                 const data = await fetch("http://localhost/shyamSteelProject/getAll.php")
                 const response = await data.json()
+
+                const sortedDataById = response.slice().sort((a, b) => a.id - b.id);
+                const sortedDataByName = response.slice().sort((a, b) => a.name.localeCompare(b.name));
+
+                const displayData = (data) => {
+                    records = data.map((single, index) => {
+                        return `<tr>
+                            <td>${index + 1}</td>  
+                            <td>${single.name}</td>
+                            <td>${single.image}<img height="50px" width="50px" alt="image" src="${single.image}"></td>
+                            <td>${single.gender}</td>
+                            <td>${single.address}</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                <a href="#" class="btn btn-sm btn-warning">View</a></td>
+                            </td>
+                        </tr>`;
+                    });
+
+                    render.innerHTML = records.join('');
+                };
+
+                // Display sorted data initially (e.g., by ID)
+                displayData(sortedDataById);
+
+                // you can trigger sorting by other columns
+                document.getElementById("sortById").addEventListener("click", () => displayData(sortedDataById));
+                document.getElementById("sortByName").addEventListener("click", () => displayData(sortedDataByName));
+
                 setTimeout(() => {
                     records = response.map((single, index) => {
                     return (`<tr>
                     <td>${index + 1}</td>  
                     <td>${single.name}</td>
-                    <td>${single.image} <img width="50px" height="50px" alt="image" src="${single.img}"></td>
+                    <td>${single.image} <img height="50px" width="50px" alt="image" src="${single.img}"></td>
                     <td>${single.gender}</td>
                     <td>${single.address}</td>
-                    <td><a href="#" class="btn btn-warning">View</a></td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                        <a href="#" class="btn btn-sm btn-warning">View</a></td>
                     </tr> `)
                     })
                     

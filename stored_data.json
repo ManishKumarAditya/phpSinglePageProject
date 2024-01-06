@@ -1,14 +1,26 @@
 [
     {
-        "name": "Sandra Wade",
+        "name": "Manish Kumar",
         "image": "public\/uploads\/1694500534062.JPEG",
-        "gender": "Female",
-        "address": "Et perspiciatis dol"
+        "gender": "Male",
+        "address": "Purnea Bihar"
     },
     {
-        "name": "Manish kumar",
+        "name": "Nitish Kumar",
         "image": "public\/uploads\/images.jpeg",
         "gender": "Male",
-        "address": "Purnea"
+        "address": "Purnea Bihar"
+    },
+    {
+        "name": "Gaurav Kumar",
+        "image": "public\/uploads\/76675019.jpeg",
+        "gender": "Male",
+        "address": "Kolkata"
+    },
+    {
+        "name": "Aditya Roy",
+        "image": "public\/uploads\/WhatsApp Image 2021-11-20 at 16.59.38.jpeg",
+        "gender": "Male",
+        "address": "Delhi"
     }
 ]

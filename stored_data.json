@@ -1,74 +1,20 @@
 [
     {
-        "name": "Manish Kumar",
-        "image": "public\/uploads\/1694500534062.JPEG",
+        "name": "Travis Pittman",
         "gender": "Male",
-        "address": "Purnea Bihar"
+        "address": "Exercitationem conse",
+        "image": "public\/uploads\/images\/1704621378.jpg"
     },
     {
-        "name": "Nitish Kumar",
-        "image": "public\/uploads\/images.jpeg",
-        "gender": "Male",
-        "address": "Purnea Bihar"
-    },
-    {
-        "name": "Gaurav Kumar",
-        "image": "public\/uploads\/76675019.jpeg",
-        "gender": "Male",
-        "address": "Kolkata"
-    },
-    {
-        "name": "Aditya Roy",
-        "image": "public\/uploads\/WhatsApp Image 2021-11-20 at 16.59.38.jpeg",
-        "gender": "Male",
-        "address": "Delhi"
-    },
-    {
-        "name": "Bree Gardner",
-        "image": "public\/uploads\/screencapture-127-0-0-1-8000-partnersupport-activity-logs-2023-08-01-23_58_55.png",
-        "gender": "Male",
-        "address": "Culpa magnam eum quo"
-    },
-    {
-        "name": "Nasim Estes",
-        "image": "public\/uploads\/screencapture-127-0-0-1-8000-partnersupport-activity-logs-2023-08-01-23_58_55.png",
-        "gender": "Male",
-        "address": "Quia saepe non velit"
-    },
-    {
-        "name": "Griffith Cohen",
-        "image": "public\/uploads\/screencapture-127-0-0-1-8000-partnersupport-activity-logs-2023-08-01-23_50_06.png",
+        "name": "Ursula Adams",
         "gender": "Female",
-        "address": "Eiusmod eu aliquam n"
+        "address": "Aut est dicta illo ",
+        "image": "public\/uploads\/images\/1704621478.JPG"
     },
     {
-        "name": "Nasim Estes",
-        "image": "public\/uploads\/screencapture-127-0-0-1-8000-partnersupport-activity-logs-2023-08-01-23_58_55.png",
+        "name": "Ailey Steele",
         "gender": "Male",
-        "address": "Quia saepe non velit"
-    },
-    {
-        "name": "Nasim Estes",
-        "image": "public\/uploads\/screencapture-127-0-0-1-8000-partnersupport-activity-logs-2023-08-01-23_58_55.png",
-        "gender": "Male",
-        "address": "Quia saepe non velit"
-    },
-    {
-        "name": "Nasim Estes",
-        "image": "public\/uploads\/screencapture-127-0-0-1-8000-partnersupport-activity-logs-2023-08-01-23_58_55.png",
-        "gender": "Male",
-        "address": "Quia saepe non velit"
-    },
-    {
-        "name": "Nasim Estes",
-        "image": "public\/uploads\/screencapture-127-0-0-1-8000-partnersupport-activity-logs-2023-08-01-23_58_55.png",
-        "gender": "Male",
-        "address": "Quia saepe non velit"
-    },
-    {
-        "name": "aditya manish",
-        "image": "public\/uploads\/screencapture-checkout-stripe-c-pay-cs-test-a1BZd1XjhEJdfnAZqlC53CEojB6cLNHex7mCpzBGOKRSZpuo6HKJesl14N-2023-08-20-20_45_04.png",
-        "gender": "Male",
-        "address": "Purnea"
+        "address": "Assumenda et et dolo",
+        "image": "public\/uploads\/images\/1704621591.JPG"
     }
 ]

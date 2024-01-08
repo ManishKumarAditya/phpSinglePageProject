@@ -1,36 +1,34 @@
 <?php
-header('Content-Type: application/json');
-$data = json_decode(file_get_contents('php://input'), true);
 
-if ($data) {
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image']))
+{
+	$extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+	
+    $targetDir = 'public/uploads/images/';
+    if (!is_dir($targetDir)) {
+        mkdir($targetDir, 0777, true);
+    }
+
+    //set image to unique name
+    $new_name = $targetDir . time() . '.' . $extension;
+
+	move_uploaded_file($_FILES['image']['tmp_name'],  $new_name);
     $jsonFile = 'stored_data.json';
 
-    if (isset($data['image'])) {
-        $image = $data['image'];
+    $jsonData = [
+        'name' => $_POST['name'],
+        'gender' => $_POST['gender'],
+        'address' => $_POST['address'],
+        'image' => $new_name,
+    ];
 
-       //image path
-        $imagePath = 'public/uploads/' .basename($image);
+    // Read existing data, append new data, and save to file
+    $existingData = json_decode(file_get_contents($jsonFile), true) ?? [];
+    $existingData[] = $jsonData;
 
-        // Save the image to file
-        if (file_put_contents($imagePath, base64_decode($image))) {
-            $data['image'] = $imagePath;
+    //write in existing file in preety way
+    file_put_contents($jsonFile, json_encode($existingData, JSON_PRETTY_PRINT));
 
-            // Read existing data, append new data, and save to file
-            $existingData = json_decode(file_get_contents($jsonFile), true) ?? [];
-            $existingData[] = $data;
-            file_put_contents($jsonFile, json_encode($existingData, JSON_PRETTY_PRINT));
-
-            // Return the updated data including the image path
-            echo json_encode(['success' => true, 'data' => $existingData, 'imagePath' => $imagePath]);
-        } else {
-            echo json_encode(['success' => false, 'error' => 'Failed to save the image']);
-        }
-      
-    } else {
-        $data['image'] = null;
-    }
-   
-} else {
-    echo json_encode(['success' => false, 'error' => 'Invalid data']);
+	echo json_encode($jsonData);
 }
 ?>

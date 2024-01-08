@@ -7,6 +7,39 @@
     <title>ShyamSteel Project</title>
     <link rel="stylesheet" href="public/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/assets/css/style.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody {
+            display: block;
+            height: 200px; /* Set the height of the scrollable area */
+            overflow-y: scroll;
+        }
+
+        thead, tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        tbody td {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -41,7 +74,7 @@
             <div class="row mt-5">
                 <div class="col-lg-3">
                     <ul class="list-group">
-                        <li class="list-group-item active" aria-current="true">Fill the Details form</li>
+                        <li class="list-group-item active" aria-current="true">Fill the form Details</li>
                     </ul>
                 </div>
                 <div class="col-lg-8">
@@ -50,6 +83,8 @@
                             <h4>Fill the details</h4>
                         </div>
                         <div class="card-body">
+                            <div class="text-center" id="uploaded_image"></div>
+
                             <form id="myForm" enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
@@ -58,7 +93,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="Image" class="form-label">Image</label>
-                                    <input type="file" name="image" class="form-control" id="Image" accept=".jpeg, .png, .gif" required>
+                                    <input type="file" name="image" class="form-control" accept=".jpg" id="image" required>
                                 </div>
 
                                 <div class="mb-3">
@@ -86,7 +121,7 @@
             <div class="col-lg-12">
                 <button class="btn btn-secondary mb-2" id="sortById">Sort by ID</button>
                 <button class="btn btn-secondary mb-2" id="sortByName">Sort by Name</button>
-                <table class="table table-striped" style="width:100%;display:block;">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -111,33 +146,57 @@
             const name = document.querySelector("#name").value;
             const gender = document.querySelector("#gender").value;
             const address = document.querySelector("#address").value;
+            const image = document.getElementsByName('image')[0];
+
+            const file = image.files[0];
+
+            if(!['image/jpeg', 'image/png'].includes(file.type))
+            {
+                document.getElementById('uploaded_image').innerHTML = '<div class="alert alert-danger">Only .jpg and .png image are allowed</div>';
+
+                document.getElementsByName('image')[0].value = '';
+                
+                return;
+            }
+
+            // check file size (< 2MB)
+            if(file.size > 2 * 1024 * 1024)
+            {
+                document.getElementById('uploaded_image').innerHTML = '<div class="alert alert-danger">File must be less than 2 MB</div>';
+
+                document.getElementsByName('image')[0].value = '';
+                return;
+            }
+
 
             // Check if required fields are empty
             if (!name.trim() || !gender.trim() || !address.trim()) {
-                alert('Please fill in all required fields.');
+                alert('Please fill the all required fields.');
                 return;
             }
 
             const formData = new FormData(document.getElementById('myForm'));
-            const jsonData = {};
 
+            // append image in formData
+            formData.append('image', file);
+
+            // loop apply to each element of fromData
             formData.forEach((value, key) => {
-                jsonData[key] = key === 'image' ? value.name : value;
+                formData[key] = key === 'image' ? value.name : value;
             });
 
             fetch('store_data.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(jsonData),
+                body: formData
             })
-            .then(response => response.json())
+
             .then(data => {
                 console.log('Data stored successfully:', data);
                 document.querySelector("#name").value = '';
                 document.querySelector("#gender").value = '';
                 document.querySelector("#address").value = '';
+                document.getElementsByName('image')[0].value = '';
+        
                 getAll();
             })
             .catch(error => {
@@ -160,7 +219,9 @@
                         return `<tr>
                             <td>${index + 1}</td>  
                             <td>${single.name}</td>
-                            <td>${single.image}<img height="50px" width="50px" alt="image" src="${single.image}"></td>
+                            <td><img height="90px" width="70px" alt="image" src=${single.image}>
+                                <a href="${single.image}" class="btn font-weight-bold btn-sm btn-success" download>Download</a>
+                            </td>
                             <td>${single.gender}</td>
                             <td>${single.address}</td>
                             <td>
@@ -186,7 +247,9 @@
                     return (`<tr>
                     <td>${index + 1}</td>  
                     <td>${single.name}</td>
-                    <td>${single.image} <img height="50px" width="50px" alt="image" src="${single.img}"></td>
+                    <td><img height="90px" width="70px" alt="image" src="${single.image}">
+                        <a href="${single.image}" class="btn font-weight-bold btn-sm btn-success" download>Download</a>
+                    </td>
                     <td>${single.gender}</td>
                     <td>${single.address}</td>
                     <td>
@@ -196,7 +259,7 @@
                     </tr> `)
                     })
                     
-                    render.innerHTML = records.join('');
+                    // render.innerHTML = records.join(''); 
                     console.log(response);
                 }, 1000)
 
